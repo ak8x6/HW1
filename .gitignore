@@ -1,0 +1,11 @@
+# Staff-only — never publish
+homework1_solution.ipynb
+contest/_private/
+
+# Python / Jupyter cruft
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.DS_Store
