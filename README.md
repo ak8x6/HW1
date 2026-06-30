@@ -1,105 +1,90 @@
-# Homework 1 — The ML Framework
+# Logistic Regression from Scratch — PyTorch Implementation
 
-This homework accompanies **Session 02: The ML Framework**. You will move from a
-Python warm-up to building **logistic regression from scratch in PyTorch**, and
-finish with a **prediction contest**.
-
-## 📘 The assignment
-
-Do the work in the notebook **[`homework1.ipynb`](homework1.ipynb)** — that's the
-assignment. A read-only **[`homework1.pdf`](homework1.pdf)** copy is included for
-easy reading/printing, but you submit/run the notebook.
+> **Completed by [Ahmad Kassem](https://github.com/ak8x6)** as part of the Machine Learning program at [LebNet](https://github.com/TechFellows26) (TechFellows26) — Session 02: The ML Framework.
 
 ---
 
-## Setup
+## 📌 Overview
+
+This project implements **binary logistic regression from scratch using PyTorch**, following the core ML pipeline: **model → loss → optimization → generalization**. It includes a full implementation of the training loop, custom loss functions, and a prediction contest submission.
+
+## 🧠 What I Built
+
+### Part 1 — PyTorch Fundamentals
+- Explored tensors, vectorized operations, and automatic differentiation (`autograd`)
+- Understood the computational graph and gradient flow in PyTorch
+
+### Part 2 — Logistic Regression from Scratch
+- Implemented the **sigmoid activation function**
+- Built **binary cross-entropy (BCE) loss** from scratch
+- Created a `LinearClassifier` as a custom `nn.Module`
+- Wrote the full **gradient descent training loop**
+- Conducted a **learning-rate ablation study** with loss curve analysis
+- Evaluated model performance with accuracy metrics on held-out test data
+
+### Part 3 — Prediction Contest
+- Trained and optimized a classifier on the provided contest dataset
+- Generated predictions and produced a validated `submission.csv`
+
+## 📊 Dataset
+
+- **MAGIC Gamma Telescope** — 19,020 events, 10 numeric features, binary classification (gamma vs. hadron)
+- Source: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/159/magic+gamma+telescope)
+
+## 🛠️ Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Python 3.9+** | Core language |
+| **PyTorch** | Model building, autograd, tensor operations |
+| **NumPy** | Numerical computing |
+| **Pandas** | Data loading and manipulation |
+| **Matplotlib** | Visualization and loss curve plotting |
+| **scikit-learn** | Data preprocessing and evaluation utilities |
+
+## 🚀 Getting Started
 
 ```bash
-# from this folder (final_lectures/hw1)
+# Clone the repository
+git clone https://github.com/ak8x6/logistic-regression-pytorch.git
+cd logistic-regression-pytorch
+
+# Create a virtual environment
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Launch the notebook
 jupyter notebook homework1.ipynb
 ```
 
-You do **not** need a GPU. Everything runs on CPU in seconds.
+> **Note:** No GPU required — everything runs on CPU in seconds.
 
-**Dataset (Part 2).** The [MAGIC Gamma Telescope](https://archive.ics.uci.edu/dataset/159/magic+gamma+telescope)
-set (19,020 events, 10 numeric features, binary gamma-vs-hadron label), bundled as
-`data/magic04.data` — everything runs offline. The **Part 3 contest** uses a
-separate dataset (TBD); its files are added to `data/` when released.
-
----
-
-## Structure
-
-| Part | Topic | What you do |
-|------|-------|-------------|
-| **Part 1** | PyTorch basics | What PyTorch adds over plain Python: tensors, vectorization, autograd. Assumes you can already program (new to Python? see the [Google Python tutorial](https://developers.google.com/edu/python)). |
-| **Part 2** | Logistic regression from scratch | Build a `LinearClassifier` (`nn.Module`), implement sigmoid, BCE loss, accuracy, evaluate, and the gradient-descent loop, then run a **learning-rate ablation** (loss curves for different learning rates). |
-| **Part 3** | Contest | Train your best model and produce a `submission.csv` we will score. |
-
-The folder is intentionally minimal — the notebook is **self-contained** (it
-defines its own data/plotting helpers, so there is no `utils.py` to import):
+## 📁 Project Structure
 
 ```
-hw1/
-├── homework1.ipynb           <- the assignment (work here)
-├── homework1.pdf             <- read-only PDF copy of the assignment
-├── hw1_tests.py              <- the only support file: self-checks, an
-│                                environment check, and the contest validator
-├── requirements.txt          <- packages to install
-├── reading/                  <- start here: Session 02 summary + logistic-regression reference
+├── homework1.ipynb           ← Main notebook with all solutions
+├── homework1.pdf             ← Read-only PDF version of the assignment
+├── hw1_tests.py              ← Unit tests and contest submission validator
+├── requirements.txt          ← Python dependencies
+├── reading/
+│   ├── Session_02_Summary.pdf
+│   └── 220-logistic-regression.pdf
 ├── data/
-│   ├── magic04.data          <- Part 2 dataset (MAGIC), bundled
-│   ├── contest_train.csv     <- Part 3 training data (added when released)
-│   └── contest_test.csv      <- Part 3 test set, labels hidden (added when released)
+│   ├── magic04.data          ← MAGIC Gamma Telescope dataset
+│   ├── contest_train.csv     ← Contest training data
+│   └── contest_test.csv      ← Contest test set (labels hidden)
 └── contest/
-    └── sample_submission.csv <- example of the expected submission format
+    ├── sample_submission.csv ← Expected submission format
+    └── submission.csv        ← My contest predictions
 ```
 
----
+## 🏷️ Attribution
 
-## Self-checking your work
+This project is a fork of the original assignment repository by **[TechFellows26](https://github.com/TechFellows26/HW1)** (LebNet). The assignment structure, datasets, and test suite were provided by the course instructors. All solutions and implementations are my own work.
 
-Throughout Part 2 you will see cells like:
+## 📄 License
 
-```python
-from hw1_tests import check_sigmoid
-check_sigmoid(sigmoid)        # pass YOUR function
-```
-
-These run lightweight unit tests against your implementation and print
-`PASS` / `FAIL` with a hint. You can also run everything at once at the end:
-
-```python
-from hw1_tests import run_all
-run_all(globals())
-```
-
-The tests check **correctness of the building blocks** (shapes, known values,
-edge cases). Passing them does not guarantee a high contest score — that depends
-on your modeling choices.
-
----
-
-## Part 3 — Contest (dataset TBD)
-
-You may use **any model and any library** (your Part 2 model, scikit-learn, …) —
-you're graded on predictions, not implementation. When the contest dataset is
-released you'll get two files in `data/`:
-
-- `contest_train.csv` — labeled training data (a `label` column + feature columns).
-- `contest_test.csv` — the test set: an `example_id` column + the same features,
-  with **labels hidden**.
-
-You will train a model, predict a label for every `example_id`, and save a CSV with
-columns **`example_id,prediction`** to `contest/submission.csv` (see
-`contest/sample_submission.csv`). Validate the format before submitting:
-
-```bash
-python hw1_tests.py contest/submission.csv
-```
-
-A submission that does not pass the validator will not be scored. The exact metric,
-deadline, and leaderboard will be announced with the dataset.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
