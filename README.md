@@ -1,6 +1,6 @@
 # Logistic Regression from Scratch — PyTorch Implementation
 
-> **Completed by [Ahmad Kassem](https://github.com/ak8x6)** as part of the Machine Learning program at [LebNet](https://github.com/TechFellows26) (TechFellows26) — Session 02: The ML Framework.
+> **Completed by [Ahmad Kassem](https://github.com/ak8x6)** as part of the AI Tech Fellow program at [LebNet](https://github.com/TechFellows26) (TechFellows26).
 
 ---
 
